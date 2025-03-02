@@ -1,0 +1,420 @@
+@font-face {
+    font-family: 'Stardew Valley';
+    src: url('fonts/Stardew_Valley.ttf') format('truetype'),
+         url('fonts/Stardew_Valley.otf') format('opentype');
+}
+
+body {
+    font-family: 'Stardew Valley', cursive;
+    background-image: url('https://i.pinimg.com/1200x/b8/1a/a4/b81aa44ba47c8ebb93c4525a96904101.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    padding: 15px;
+    margin: 0;
+    min-height: 100vh;
+    position: relative;
+}
+
+body::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.3);
+    z-index: -1;
+}
+
+.header-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 900px;
+    margin: 0 auto 15px;
+    padding: 0 15px;
+    gap: 15px;
+}
+
+/* Add header logo styling */
+.header-logo {
+    margin-left: -60px !important; /* Pulls logo 10px left */
+    margin-right: 5px; /* Reduces space to right */
+    margin: 0 10px; /* Reduced horizontal margin */
+    filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.2));
+    transition: transform 0.2s ease; /* Added smooth hover effect */
+}
+
+/* Optional: Add hover animation */
+.header-logo:hover {
+    transform: scale(1.05);
+}
+
+/* Update mobile size */
+@media (max-width: 768px) {
+    .header-logo {
+        height: 40px; /* Reduced from 50px */
+        margin: 10px 0;
+    }
+}
+
+.year-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.game-title {
+    font-family: 'Stardew Valley';
+    font-size: 2em;
+    color: #2c441f;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+    margin: 0 10px;
+    letter-spacing: 2px;
+    white-space: nowrap;
+}
+
+.year-arrow {
+    background-color: #4a6b3a;
+    color: white;
+    border: 2px solid #2c441f;
+    padding: 4px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Stardew Valley';
+    font-size: 1.3em;
+    transition: all 0.2s ease;
+}
+
+.year-arrow:hover {
+    background-color: #5d8548;
+    transform: translateY(-1px);
+}
+
+.year-display {
+    font-size: 1.5em;
+    color: #2c441f;
+    min-width: 80px;
+    text-align: center;
+}
+
+.season-select {
+    width: 130px;
+    padding: 8px 35px 8px 15px;
+    border: 2px solid #6B553A;
+    border-radius: 4px;
+    font-family: 'Stardew Valley';
+    font-size: 1.1em;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232F4F4F'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    background-size: 10px;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+    flex-shrink: 0;
+}
+
+.season-select[data-season="0"] { background-color: #B1D8B7; color: #2F4F4F; }
+.season-select[data-season="1"] { background-color: #F4A896; color: #5E2C1A; }
+.season-select[data-season="2"] { background-color: #D97B29; color: #3C1F00; }
+.season-select[data-season="3"] { background-color: #A3C1DA; color: #1E2F40; }
+
+.season-select option[value="0"] { background-color: #B1D8B7; color: #2F4F4F; }
+.season-select option[value="1"] { background-color: #F4A896; color: #5E2C1A; }
+.season-select option[value="2"] { background-color: #D97B29; color: #3C1F00; }
+.season-select option[value="3"] { background-color: #A3C1DA; color: #1E2F40; }
+
+.calendar-container {
+    max-width: 900px;
+    margin: 0 auto;
+    background-color: rgba(255, 255, 255, 0.7);
+    border: 3px solid #6b553a;
+    border-radius: 6px;
+    padding: 8px;
+    backdrop-filter: blur(5px);
+}
+
+.weekday-header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+    margin-bottom: 2px;
+}
+
+.weekday-header div {
+    background-color: #8f7860;
+    color: white;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 1em;
+    text-transform: uppercase;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+}
+
+.day {
+    position: relative;
+    background-color: rgba(217, 198, 165, 0.9);
+    min-height: 100px;
+    padding: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.day:hover {
+    background-color: rgba(227, 213, 192, 0.9);
+}
+
+.day-number {
+    font-size: 1.2em;
+    margin-bottom: 5px;
+    color: #4a6b3a;
+}
+
+.event-icon {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 24px;
+    height: 24px;
+    z-index: 2;
+}
+
+.birthday-icon {
+    border-radius: 50%;
+    border: 2px solid gold;
+}
+
+.event-clickable {
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.event-clickable:hover {
+    transform: scale(1.1);
+}
+
+.task {
+    background-color: rgba(255,255,255,0.3);
+    padding: 4px;
+    margin: 3px 0;
+    border-radius: 3px;
+    border-left: 3px solid;
+    font-size: 0.9em;
+    position: relative;
+    font-family: 'Stardew Valley';
+    word-break: break-word;
+}
+
+.delete-task {
+    position: absolute;
+    right: 3px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #cd5c5c;
+    cursor: pointer;
+    font-family: Arial;
+    font-size: 16px;
+    font-weight: bold;
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.delete-task:hover {
+    color: #ff0000;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 9999;
+}
+
+.modal-content {
+    background-color: rgba(217, 198, 165, 0.9);
+    padding: 15px;
+    border-radius: 6px;
+    width: 280px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px solid #6b553a;
+    z-index: 10000;
+    box-sizing: border-box;
+    backdrop-filter: blur(3px);
+}
+
+.modal-content h2 {
+    color: #4a6b3a;
+    margin: 5px 0 10px;
+    font-size: 1.3em;
+    text-align: center;
+}
+
+.modal-buttons {
+    margin-top: 12px;
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+input, select {
+    width: calc(100% - 4px);
+    padding: 4px 6px;
+    margin: 4px 0;
+    border: 2px solid #6b553a;
+    border-radius: 3px;
+    font-family: 'Stardew Valley';
+    font-size: 0.9em;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+select {
+    background-position: right 6px center;
+    padding-right: 30px;
+}
+
+button {
+    background-color: #4a6b3a;
+    color: white;
+    border: 2px solid #2c441f;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Stardew Valley';
+    font-size: 0.9em;
+    transition: all 0.2s ease;
+}
+
+button:hover {
+    background-color: #5d8548;
+    transform: translateY(-1px);
+}
+
+.event-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(217, 198, 165, 0.95);
+    padding: 15px;
+    border-radius: 8px;
+    border: 2px solid #6b553a;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    z-index: 10000;
+    animation: popup 0.3s ease-out;
+}
+
+@keyframes popup {
+    from { transform: translate(-50%, -30%); opacity: 0; }
+    to { transform: translate(-50%, -50%); opacity: 1; }
+}
+
+@media (max-width: 768px) {
+    .header-controls {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .game-title {
+        font-size: 1.8em;
+        order: -1;
+    }
+    
+    .calendar-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .calendar-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .season-select {
+        width: 100%;
+    }
+    
+    .year-display {
+        font-size: 1.3em;
+    }
+    
+    .modal-content {
+        width: 90%;
+    }
+    
+    .game-title {
+        font-size: 1.5em;
+        text-align: center;
+    }
+
+
+/* Improved delete button styling */
+.delete-task {
+    position: absolute;
+    right: 0;
+    top: 0;
+    transform: translate(30%, -30%);
+    color: white;
+    cursor: pointer;
+    font-family: Arial;
+    font-size: 14px;
+    font-weight: bold;
+    background: #cd5c5c;
+    border: 2px solid #8b0000;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: all 0.1s ease;
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+}
+
+.delete-task:hover {
+    background: #ff0000;
+    transform: translate(30%, -30%) scale(1.2);
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+}
+
+/* Update task styling for better delete button fit */
+.task {
+    position: relative;
+    padding: 8px 25px 8px 8px;
+    margin: 4px 0;
+    cursor: pointer;
+    transition: transform 0.2s;
+    overflow: visible;
+}
+
+/* Media query adjustments */
+@media (max-width: 768px) {
+    
+    .year-controls {
+        order: 1;
+    }
+    
+    .season-select {
+        order: 2;
+    }
+}
+}

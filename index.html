@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stardew Valley Planner</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="header-controls">
+        <div class="year-controls">
+            <button class="year-arrow" onclick="changeYear(-1)">←</button>
+            <div class="year-display">Year <span id="currentYear">1</span></div>
+            <button class="year-arrow" onclick="changeYear(1)">→</button>
+        </div>
+        
+        <img src="logo.png" class="header-logo" alt="Stardew Valley Logo">
+        
+        <select id="seasonSelect" class="season-select">
+            <option value="0">Spring</option>
+            <option value="1">Summer</option>
+            <option value="2">Fall</option>
+            <option value="3">Winter</option>
+        </select>
+    </div>
+
+    <div class="calendar-container">
+        <div class="weekday-header">
+            <div>MON</div>
+            <div>TUE</div>
+            <div>WED</div>
+            <div>THU</div>
+            <div>FRI</div>
+            <div>SAT</div>
+            <div>SUN</div>
+        </div>
+        <div class="calendar-grid" id="calendar"></div>
+    </div>
+
+    <!-- Task Modal -->
+    <div class="modal" id="taskModal">
+        <div class="modal-content">
+            <h2>Add Task for Day <span id="selectedDay"></span></h2>
+            <input type="text" id="taskName" placeholder="Task name" required autofocus>
+            <input type="text" id="taskDesc" placeholder="Description (optional)">
+            <select id="taskColor">
+                <option value="#f0f4cd">Default</option>
+                <option value="#8fbc8f">Spring Green</option>
+                <option value="#cd5c5c">Summer Red</option>
+                <option value="#daa520">Fall Gold</option>
+                <option value="#87ceeb">Winter Blue</option>
+            </select>
+            <div class="modal-buttons">
+                <button onclick="addTask()">Add Task</button>
+                <button onclick="closeModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Task Detail Modal -->
+    <div class="modal" id="taskDetailModal">
+        <div class="modal-content">
+            <h2>Task Details</h2>
+            <div id="taskDetailName" class="task-detail-item"></div>
+            <div id="taskDetailDesc" class="task-detail-item"></div>
+            <div class="task-detail-color" id="taskDetailColor"></div>
+            <div class="modal-buttons">
+                <button onclick="closeDetailModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
